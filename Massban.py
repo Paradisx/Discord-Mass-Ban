@@ -4,6 +4,8 @@ class color():
 	PINK = '\x1b[38;5;207m'
 	WHITE = '\033[39m'
 
+user_ids = []
+
 def Main(): 
     os.system(f'title [Mass Ban] By Dassidy')
     print(f'''
@@ -15,18 +17,24 @@ def Main():
     if option == '1':
         guild = input(f"{color.PINK}[{color.WHITE}?{color.PINK}]{color.WHITE} Guild ID{color.PINK}>{color.WHITE} ")
         token = input(f"{color.PINK}[{color.WHITE}?{color.PINK}]{color.WHITE} Token{color.PINK}>{color.WHITE} ")
-        with open('ids.txt', 'r') as f:
-            for line in f:
-                threading.Thread(target=ban, args=(guild, token, line, )).start()
+        users = open('ids.txt').readlines()
+        for member in users:
+            user = member.replace("\n", "")
+            user_ids.append(user)
+        for m in range(len(user_ids)):
+            threading.Thread(target=ban, args=(guild, token,user_ids[m],)).start()
         time.sleep(4)
         clear()
         Main()
     elif option == '2':
         guild = input(f"{color.PINK}[{color.WHITE}?{color.PINK}]{color.WHITE} Guild ID{color.PINK}>{color.WHITE} ")
         token = input(f"{color.PINK}[{color.WHITE}?{color.PINK}]{color.WHITE} Token{color.PINK}>{color.WHITE} ")
-        with open('ids.txt', 'r') as f:
-            for line in f:
-                threading.Thread(target=unban, args=(guild, token, line, )).start()
+        users = open('ids.txt').readlines()
+        for member in users:
+            user = member.replace("\n", "")
+            user_ids.append(user)
+        for m in range(len(user_ids)):
+            threading.Thread(target=ban, args=(guild, token,user_ids[m],)).start()
         time.sleep(4)
         clear()
         Main()
